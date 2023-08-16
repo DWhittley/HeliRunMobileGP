@@ -4,29 +4,19 @@ using UnityEngine;
 
 public class ObjectScroll : MonoBehaviour
 {
-    public int speed = 120;
     public float minZPos = -2.0f;
-    public float incrementRate = 10.0f; // speed increase increment
 
     private Rigidbody rb;
-    private float IncrementTimer;
-    private float incrementInterval = 5.0f; // speed increase interval (seconds)
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.forward * -speed;
+        rb.velocity = Vector3.forward * GameManager.scrollSpeed;
     }
 
     void Update()
     {
-        IncrementTimer += Time.deltaTime;
-        if (IncrementTimer >= incrementInterval) // check if interval exceeded
-        {
-            speed += (int)incrementRate; // increase speed by increment
-            rb.velocity = Vector3.forward * -speed; // Asjust velocity to new speed
-            IncrementTimer = 0.0f; // Reset timer
-        }
+        rb.velocity = Vector3.forward * GameManager.scrollSpeed; // Asjust velocity to new speed
 
         if (transform.position.z < minZPos)
         {

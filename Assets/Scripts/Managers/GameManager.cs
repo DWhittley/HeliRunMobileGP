@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
-using GooglePlayGames;
-using GooglePlayGames.BasicApi;
+//using GooglePlayGames;
+//using GooglePlayGames.BasicApi;
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
 {
     static GameManager _instance = null;
     static TimeController timeController;
+    public static int scrollSpeed = -120;
+    public float incrementRate = 5.0f; // speed increase increment
+    private float IncrementTimer;
+    private float incrementInterval = 5.0f; // speed increase interval (seconds)
 
     public static GameManager instance
     {
@@ -97,24 +101,24 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
+        //PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
         _lives = maxLives;
         _fuel = 100;
     }
 
-    internal void ProcessAuthentication(SignInStatus status)
-    {
-        if (status == SignInStatus.Success)
-        {
-            // Continue with Play Games Services
-        }
-        else
-        {
-            // Disable your integration with Play Games Services or show a login button
-            // to ask users to sign-in. Clicking it should call
-            // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
-        }
-    }
+    //internal void ProcessAuthentication(SignInStatus status)
+    //{
+    //    if (status == SignInStatus.Success)
+    //    {
+    //        // Continue with Play Games Services
+    //    }
+    //    else
+    //    {
+    //        // Disable your integration with Play Games Services or show a login button
+    //        // to ask users to sign-in. Clicking it should call
+    //        // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
+    //    }
+    //}
     //void OnSceneLoadedCallback(SceneloadedScene, LoadSceneMode) 
     //{
     //    if (loadedScene.name == "Level")
@@ -162,6 +166,14 @@ public class GameManager : MonoBehaviour
         else
         {
             // Ignore the timeController elements in the title scene
+        }
+
+        IncrementTimer += Time.deltaTime;
+        if (IncrementTimer >= incrementInterval) // check if interval exceeded
+        {
+            scrollSpeed -= (int)incrementRate; // increase speed by increment
+            Debug.Log("Scroll speed set to" + scrollSpeed);
+            IncrementTimer = 0.0f; // Reset timer
         }
     }
 
