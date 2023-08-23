@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
-//using GooglePlayGames;
-//using GooglePlayGames.BasicApi;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
@@ -101,24 +101,24 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        //PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
+        PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
         _lives = maxLives;
         _fuel = 100;
     }
 
-    //internal void ProcessAuthentication(SignInStatus status)
-    //{
-    //    if (status == SignInStatus.Success)
-    //    {
-    //        // Continue with Play Games Services
-    //    }
-    //    else
-    //    {
-    //        // Disable your integration with Play Games Services or show a login button
-    //        // to ask users to sign-in. Clicking it should call
-    //        // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
-    //    }
-    //}
+    internal void ProcessAuthentication(SignInStatus status)
+    {
+        if (status == SignInStatus.Success)
+        {
+            // Continue with Play Games Services
+        }
+        else
+        {
+            // Disable your integration with Play Games Services or show a login button
+            // to ask users to sign-in. Clicking it should call
+            // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
+        }
+    }
     //void OnSceneLoadedCallback(SceneloadedScene, LoadSceneMode) 
     //{
     //    if (loadedScene.name == "Level")
