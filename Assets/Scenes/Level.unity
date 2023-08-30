@@ -935,6 +935,7 @@ MonoBehaviour:
   fuelSound: {fileID: 8300000, guid: 07b0a1a8d749c3f4ab095b3d05fd1eab, type: 3}
   helicopterNoise: {fileID: 8300000, guid: db6b136cbfe2f3f49b62d6bf95923680, type: 3}
   cloudHitSound: {fileID: 8300000, guid: cea0e3960a432884a832e9781320a82f, type: 3}
+  lifeSound: {fileID: 8300000, guid: 303d7cb4d02219349886e3f7a6c1110c, type: 3}
   fuelSlider: {fileID: 1096747934}
   fuelSliderValueText: {fileID: 1660275960}
 --- !u!114 &628836687
@@ -966,7 +967,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!82 &628836689
 AudioSource:
   m_ObjectHideFlags: 0

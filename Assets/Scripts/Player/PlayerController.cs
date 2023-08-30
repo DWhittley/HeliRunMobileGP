@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip fuelSound;
     public AudioClip helicopterNoise;
     public AudioClip cloudHitSound;
+    public AudioClip lifeSound;
 
     public Slider fuelSlider;
     public Text fuelSliderValueText;
@@ -47,6 +48,15 @@ public class PlayerController : MonoBehaviour
                 asm.PlayOneShot(cloudHitSound, false);
             }
             GameManager.instance.lives--;
+        }
+
+        if (collider.CompareTag("Life"))
+        {
+            if (lifeSound)
+            {
+                asm.PlayOneShot(lifeSound, false);
+            }
+            GameManager.instance.lives++;
         }
 
         if (collider.CompareTag("Points")) // not used.... yet

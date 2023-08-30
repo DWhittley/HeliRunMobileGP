@@ -9,6 +9,7 @@ TagManager:
   - Fuel
   - Points
   - Checkpoint
+  - Life
   layers:
   - Default
   - TransparentFX

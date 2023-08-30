@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public float incrementRate = 5.0f; // speed increase increment
     private float IncrementTimer;
     private float incrementInterval = 5.0f; // speed increase interval (seconds)
+    public float maxScrollSpeed = -400;
 
     public static GameManager instance
     {
@@ -52,9 +53,6 @@ public class GameManager : MonoBehaviour
         get { return _lives; }
         set
         {
-            //if (_lives > value)
-            //    Respawn();
-
             _lives = value;
 
             if (_lives > maxLives)
@@ -97,13 +95,12 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called before the first frame update
-
     public void Start()
     {
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
         _lives = maxLives;
         _fuel = 100;
+        Time.timeScale = 1;
     }
 
     internal void ProcessAuthentication(SignInStatus status)
@@ -133,14 +130,9 @@ public class GameManager : MonoBehaviour
         currentSpawnPoint = spawnPoint;
     }
 
-    //void Respawn()
-    //{
-    //    if (playerInstance)
-    //        playerInstance.transform.position = currentSpawnPoint.position;
-    //}
-
     void Gameover()
     {
+        Time.timeScale = 0;
         timeController.UpdateLastTime();
         timeController.UpdateBestTime();
         SceneManager.LoadScene("Win");
@@ -169,7 +161,7 @@ public class GameManager : MonoBehaviour
         }
 
         IncrementTimer += Time.deltaTime;
-        if (IncrementTimer >= incrementInterval) // check if interval exceeded
+        if (IncrementTimer >= incrementInterval && scrollSpeed > maxScrollSpeed) // check if interval exceeded and we haven't hit the max scroll speed
         {
             scrollSpeed -= (int)incrementRate; // increase speed by increment
             Debug.Log("Scroll speed set to" + scrollSpeed);
