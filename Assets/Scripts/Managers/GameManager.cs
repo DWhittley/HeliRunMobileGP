@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private float IncrementTimer;
     private float incrementInterval = 5.0f; // speed increase interval (seconds)
     public float maxScrollSpeed = -400;
+    public bool connectedToGooglePlay;
 
     public static GameManager instance
     {
@@ -107,10 +108,12 @@ public class GameManager : MonoBehaviour
     {
         if (status == SignInStatus.Success)
         {
+            connectedToGooglePlay = true;
             // Continue with Play Games Services
         }
         else
         {
+            connectedToGooglePlay = false;
             // Disable your integration with Play Games Services or show a login button
             // to ask users to sign-in. Clicking it should call
             // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
@@ -135,7 +138,20 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         timeController.UpdateLastTime();
         timeController.UpdateBestTime();
+
+        if(connectedToGooglePlay)
+        {
+            Social.ReportScore(timeController.longLastAttemptTime, GPGSIds.leaderboard_helirun_top_runs, LeaderboardUpdate);
+            Social.ShowLeaderboardUI();
+        }
+    
         SceneManager.LoadScene("Win");
+    }
+
+    private void LeaderboardUpdate(bool success)
+    {
+        if (success) Debug.Log("Updated Leaderboard");
+        else Debug.Log("Unable to update Leaderboard");
     }
 
     public void Win()
@@ -164,7 +180,7 @@ public class GameManager : MonoBehaviour
         if (IncrementTimer >= incrementInterval && scrollSpeed > maxScrollSpeed) // check if interval exceeded and we haven't hit the max scroll speed
         {
             scrollSpeed -= (int)incrementRate; // increase speed by increment
-            Debug.Log("Scroll speed set to" + scrollSpeed);
+            //Debug.Log("Scroll speed set to" + scrollSpeed);
             IncrementTimer = 0.0f; // Reset timer
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class TimeController : MonoBehaviour
     private float lastAttemptTime;
     private bool timerOn;
     private float bestTimeYet;
+    public long longLastAttemptTime;
+
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +60,7 @@ public class TimeController : MonoBehaviour
     public void UpdateLastTime()
     {
         lastAttemptTime = currentTime;
+        longLastAttemptTime = Convert.ToInt64(lastAttemptTime);
         lastTime.text = currentTime.ToString("0.00");
         SaveData(); // Save the updated lastAttemptTime
     }

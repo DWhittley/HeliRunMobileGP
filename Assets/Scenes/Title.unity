@@ -2584,6 +2584,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52833bf2f2d61546bc4e6687c5fcfc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  incrementRate: 5
+  maxScrollSpeed: -400
+  connectedToGooglePlay: 0
   maxLives: 5
   maxFuel: 100
   playerInstance: {fileID: 0}
