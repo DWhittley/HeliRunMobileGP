@@ -119,14 +119,6 @@ public class GameManager : MonoBehaviour
             // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).
         }
     }
-    //void OnSceneLoadedCallback(SceneloadedScene, LoadSceneMode) 
-    //{
-    //    if (loadedScene.name == "Level")
-    //    {
-    //        //do level setup stuff
-    //    }
-    //}
-
 
     public void SpawnPlayer(Transform spawnPoint)
     {
